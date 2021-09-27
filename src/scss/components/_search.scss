@@ -1,0 +1,16 @@
+.search{
+  &__text{
+    padding: 2px 5px;
+    border: solid #{$colorBlack} 1px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+  }
+
+  &__button{
+    margin-left: 10px;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
