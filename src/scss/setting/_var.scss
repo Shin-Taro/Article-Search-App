@@ -1,0 +1,27 @@
+// breakpoint
+$breakSP: 768;
+$breakPC: 950;
+$breakpoints: (
+  'u-sp': 'print, screen and (max-width: #{$breakSP}px)',
+  'o-sp': 'print, screen and (min-width: #{$breakSP + 1}px)',
+  'sp-pc':
+    'print, screen and (max-width: #{$breakPC}px) and (min-width: #{$breakSP + 1}px)',
+  'o-pc': 'print, screen and (min-width: #{$breakPC + 1}px)',
+) !default;
+@mixin mq($breakpoint: u-sp) {
+  @media #{inspect(map-get($breakpoints, $breakpoint))} {
+    @content;
+  }
+}
+
+// PATH
+$bgPath: 'images/';
+$fontPath: 'fonts/';
+
+// COLOR
+$colorWhite: #fff;
+$colorBlack: #000;
+
+// FONT
+
+// FONT-SIZE
