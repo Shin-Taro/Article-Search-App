@@ -1,4 +1,8 @@
 .articleSearcher{
   padding-top: 150px;
   background-color: $colorDarkGray;
+
+  @include mq(){
+    padding-top: 110px;
+  }
 }
