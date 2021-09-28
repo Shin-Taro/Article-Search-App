@@ -15,8 +15,8 @@ const ArticleSearcher = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const testUrl = qiitaUrl + "stocks%3A%3E20";
-    fetch(testUrl,
+    const firstUrl = qiitaUrl + "stocks%3A%3E20";
+    fetch(firstUrl,
       {
         headers: {
           Authorization: `Bearer ${apiToken}`,
@@ -32,24 +32,23 @@ const ArticleSearcher = () => {
     .then(json => {
       setArticles(json);
       setLoading(false);
-
-      console.log(json);
     })
     .catch(error => {
       setError(error);
       setLoading(false);
-
       console.log(error);
     });
   }, []);
 
-  const rederArticles = () => {
-    let elements
+  const renderArticles = () => {
+    let elements;
 
     if (error) {
       elements =  <div className={`${blockName}__message`}>{error}</div>
     } else if (loading) {
       elements = <div className={`${blockName}__message`}>loading...</div>
+    } else if (articles.length === 0){
+      elements = <div className={`${blockName}__message`}>検索結果：該当なし</div>
     } else {
       elements = articles.map(article => {
         return(
@@ -66,7 +65,8 @@ const ArticleSearcher = () => {
   };
 
   const searchArticles = (value) => {
-    const requestUrl = qiitaUrl + value;
+    const escapedValue = encodeURIComponent(value);
+    const requestUrl = qiitaUrl + escapedValue;
     setLoading(true);
     setError(null);
 
@@ -86,7 +86,6 @@ const ArticleSearcher = () => {
     .then(json => {
       setArticles(json);
       setLoading(false);
-      console.log(json);
     })
     .catch(error => {
       setError(error);
@@ -103,7 +102,7 @@ const ArticleSearcher = () => {
       />
       <Container>
         <List
-          renderItems={rederArticles}
+          renderItems={renderArticles}
         />
       </Container>
     </div>
