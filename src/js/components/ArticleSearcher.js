@@ -30,6 +30,7 @@ const ArticleSearcher = () => {
       return response.json();
     })
     .then(json => {
+      console.log(json);
       setArticles(json);
       setLoading(false);
     })
