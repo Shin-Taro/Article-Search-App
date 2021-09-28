@@ -9,8 +9,13 @@ const Search = (props) => {
     setValue(value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.searchArticles(value);
+  }
+
   return(
-    <form className={blockName} onSubmit={(e) => props.onSubmit(e)}>
+    <form className={blockName} onSubmit={(e) => handleSubmit(e)}>
       <input className={`${blockName}__text`} type="text" value={value} onChange={(e) => handleChange(e)}/>
       <button className={`${blockName}__button`} type="submit">search</button>
     </form>
