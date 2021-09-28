@@ -1,6 +1,7 @@
 import React,  { useEffect, useState } from "react";
 import Article from "./Article";
 import Container from "./Container";
+import Header from "./Header";
 import List from "./List";
 import Search from "./Search";
 
@@ -13,6 +14,7 @@ const ArticleSearcher = () => {
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
+  const [keyWord, setKeyWord] = useState("トレンド");
 
   useEffect(() => {
     const firstUrl = qiitaUrl + "stocks%3A%3E20";
@@ -70,6 +72,7 @@ const ArticleSearcher = () => {
     const requestUrl = qiitaUrl + escapedValue;
     setLoading(true);
     setError(null);
+    setKeyWord(value);
 
     fetch(requestUrl,
       {
@@ -97,11 +100,12 @@ const ArticleSearcher = () => {
 
   return (
     <div className={blockName}>
-      <h1 className={`${blockName}__title`}>Search for articles in Qiita &amp; Stack Overflow</h1>
+      <Header />
       <Search
         searchArticles={searchArticles}
       />
       <Container>
+        <h1 className="container__title">{keyWord}</h1>
         <List
           renderItems={renderArticles}
         />
