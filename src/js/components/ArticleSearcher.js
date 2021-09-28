@@ -14,6 +14,35 @@ const ArticleSearcher = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const testUrl = qiitaUrl + "stocks%3A%3E20";
+    fetch(testUrl,
+      {
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+        },
+      }
+    )
+    .then(response => {
+      if(!response.ok){
+        throw new Error(response.message);
+      }
+      return response.json();
+    })
+    .then(json => {
+      setArticles(json);
+      setLoading(false);
+
+      console.log(json);
+    })
+    .catch(error => {
+      setError(error);
+      setLoading(false);
+
+      console.log(error);
+    });
+  }, []);
+
   const rederArticles = () => {
     let elements
 
