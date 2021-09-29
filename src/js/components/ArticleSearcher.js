@@ -16,10 +16,12 @@ const ArticleSearcher = () => {
   const [error, setError] = useState(null);
   const [keyWord, setKeyWord] = useState("新着");
   const [count, setCount] = useState(1);
+  const [value, setValue] = useState("created%3A%3E2021-08-01");
 
   const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
+  const requestUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=${value}`
 
-  const requestApi = url => {
+  const requestApi = (url) => {
     fetch(url,
       {
         headers: {
@@ -46,13 +48,15 @@ const ArticleSearcher = () => {
   };
 
   useEffect(() => {
-    const firstUrl = qiitaUrl + "created%3A%3E2021-08-01";
-    requestApi(firstUrl);
+    requestApi(requestUrl);
   }, []);
 
   const searchArticles = value => {
     const escapedValue = encodeURIComponent(value);
     const requestUrl = qiitaUrl + escapedValue;
+
+    setValue(escapedValue);
+    setCount(1);
     setLoading(true);
     setError(null);
     setKeyWord(value);
@@ -61,6 +65,9 @@ const ArticleSearcher = () => {
 
   const runPresets = preset => {
     const requestUrl = qiitaUrl + preset.value;
+
+    setValue(preset.value);
+    setCount(1);
     setLoading(true);
     setError(null);
     setKeyWord(preset.name);
