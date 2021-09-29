@@ -3,6 +3,7 @@ import Article from "./Article";
 import Container from "./Container";
 import Header from "./Header";
 import List from "./List";
+import Presets from "./Presets";
 import Search from "./Search";
 
 const qiitaUrl = "https://qiita.com/api/v2/items?page=1&per_page=10&query="
@@ -104,6 +105,7 @@ const ArticleSearcher = () => {
       <Search
         searchArticles={searchArticles}
       />
+      <Presets />
       <Container>
         <h1 className="container__title">{keyWord}</h1>
         <List
