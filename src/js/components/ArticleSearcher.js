@@ -49,7 +49,7 @@ const ArticleSearcher = () => {
     if (error) {
       elements =  <div className={`${blockName}__message`}>{error}</div>
     } else if (loading) {
-      elements = <div className={`${blockName}__message`}>loading...</div>
+      elements = <div className={`${blockName}__message`}>Now loading...</div>
     } else if (articles.length === 0){
       elements = <div className={`${blockName}__message`}>検索結果：該当なし</div>
     } else {
