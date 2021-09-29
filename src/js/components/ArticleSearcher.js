@@ -1,12 +1,11 @@
 import React,  { useEffect, useState } from "react";
 import Article from "./Article";
 import Container from "./Container";
+import Controller from "./Controller";
 import Header from "./Header";
 import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
-
-const qiitaUrl = "https://qiita.com/api/v2/items?page=1&per_page=10&query="
 
 const apiToken = "e361893afc81fb5184aa0c3860f528a0f8473722";
 
@@ -16,6 +15,9 @@ const ArticleSearcher = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
   const [keyWord, setKeyWord] = useState("新着");
+  const [count, setCount] = useState(1);
+
+  const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
 
   const requestApi = url => {
     fetch(url,
@@ -42,6 +44,11 @@ const ArticleSearcher = () => {
       console.log(error);
     });
   };
+
+  useEffect(() => {
+    const firstUrl = qiitaUrl + "created%3A%3E2021-08-01";
+    requestApi(firstUrl);
+  }, []);
 
   const searchArticles = value => {
     const escapedValue = encodeURIComponent(value);
@@ -82,11 +89,6 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-  useEffect(() => {
-    const firstUrl = qiitaUrl + "created%3A%3E2021-08-01";
-    requestApi(firstUrl);
-  }, []);
-
   return (
     <div className={blockName}>
       <Header />
@@ -98,6 +100,9 @@ const ArticleSearcher = () => {
       />
       <Container>
         <h1 className="container__title">{keyWord}</h1>
+        <Controller
+          count={count}
+        />
         <List
           renderItems={renderArticles}
         />
