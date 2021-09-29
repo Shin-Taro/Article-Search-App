@@ -15,7 +15,7 @@ const ArticleSearcher = () => {
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
-  const [keyWord, setKeyWord] = useState("トレンド");
+  const [keyWord, setKeyWord] = useState("新着");
 
   const requestApi = url => {
     fetch(url,
@@ -83,7 +83,7 @@ const ArticleSearcher = () => {
   };
 
   useEffect(() => {
-    const firstUrl = qiitaUrl + "stocks%3A%3E20";
+    const firstUrl = qiitaUrl + "created%3A%3E2021-08-01";
     requestApi(firstUrl);
   }, []);
 

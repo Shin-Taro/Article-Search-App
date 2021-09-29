@@ -9,8 +9,23 @@ const Presets = props => {
       isActive: true,
     },
     {
-      name: "トレンド",
-      value: "created%3A%3E2021-08-01+stocks%3A%3E10",
+      name: "人気",
+      value: "created%3A%3E2021-08-01+stocks%3A%3E20",
+      isActive: false,
+    },
+    {
+      name: "殿堂入り",
+      value: "stocks%3A%3E5000",
+      isActive: false,
+    },
+    {
+      name: "https",
+      value: "https",
+      isActive: false,
+    },
+    {
+      name: "javascript",
+      value: "javascript",
       isActive: false,
     },
   ];
