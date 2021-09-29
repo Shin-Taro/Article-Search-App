@@ -19,9 +19,10 @@ const Article = ({article}) => {
       </div>
       <div className={`${blockName}__container`}>
         <p className={`${blockName}__info`}>
-          <span className={`${blockName}__userName`}>{article.user.name}</span>
+          <span className={`${blockName}__userName`}>{article.user.id}</span>
+          <br className ="hidden--pc"/>
           <span className={`${blockName}__date`}>投稿：{article.created_at}</span>
-          <span className={`${blockName}__date`}>更新：{article.updated_at}</span>
+          <br className ="hidden--pc"/>
           {renderTags()}
         </p>
         <h1 className={`${blockName}__title`}>{article.title}</h1>
@@ -30,6 +31,7 @@ const Article = ({article}) => {
           dangerouslySetInnerHTML={{__html: article.rendered_body}} 
         />
       </div>
+      <a className={`${blockName}__link`} href={article.url} target="_blank"></a>
     </article>
   );
 };

@@ -1,0 +1,11 @@
+.hidden--sp{
+  @include mq(){
+    display: none;
+  }
+}
+
+.hidden--pc{
+  @include mq(o-sp){
+    display: none;
+  }
+}

@@ -2,11 +2,11 @@
 $breakSP: 768;
 $breakPC: 950;
 $breakpoints: (
-  'u-sp': 'print, screen and (max-width: #{$breakSP}px)',
-  'o-sp': 'print, screen and (min-width: #{$breakSP + 1}px)',
+  'u-sp': screen and (max-width: #{$breakSP}px),
+  'o-sp': screen and (min-width: #{$breakSP + 1}px),
   'sp-pc':
-    'print, screen and (max-width: #{$breakPC}px) and (min-width: #{$breakSP + 1}px)',
-  'o-pc': 'print, screen and (min-width: #{$breakPC + 1}px)',
+    screen and (max-width: #{$breakPC}px) and (min-width: #{$breakSP + 1}px),
+  'o-pc': screen and (min-width: #{$breakPC + 1}px),
 ) !default;
 @mixin mq($breakpoint: u-sp) {
   @media #{inspect(map-get($breakpoints, $breakpoint))} {
@@ -20,7 +20,11 @@ $fontPath: 'fonts/';
 
 // COLOR
 $colorWhite: #fff;
+$colorLightGray:#9a9a9a;
+$colorDarkGray:#3e3e41;
 $colorBlack: #000;
+$colorGreen: #55c500;
+$colorDarkGreen: #3e830a;
 
 // FONT
 
