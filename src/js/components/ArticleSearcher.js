@@ -17,9 +17,8 @@ const ArticleSearcher = () => {
   const [error, setError] = useState(null);
   const [keyWord, setKeyWord] = useState("トレンド");
 
-  useEffect(() => {
-    const firstUrl = qiitaUrl + "stocks%3A%3E20";
-    fetch(firstUrl,
+  const requestApi = (url) => {
+    fetch(url,
       {
         headers: {
           Authorization: `Bearer ${apiToken}`,
@@ -28,12 +27,12 @@ const ArticleSearcher = () => {
     )
     .then(response => {
       if(!response.ok){
-        throw new Error(response.message);
+        throw new Error(response);
       }
+      console.log(response);
       return response.json();
     })
     .then(json => {
-      console.log(json);
       setArticles(json);
       setLoading(false);
     })
@@ -42,13 +41,13 @@ const ArticleSearcher = () => {
       setLoading(false);
       console.log(error);
     });
-  }, []);
+  }
 
   const renderArticles = () => {
     let elements;
 
     if (error) {
-      elements =  <div className={`${blockName}__message`}>{error}</div>
+      elements =  <div className={`${blockName}__message`}>{error.message}</div>
     } else if (loading) {
       elements = <div className={`${blockName}__message`}>Now loading...</div>
     } else if (articles.length === 0){
@@ -75,29 +74,13 @@ const ArticleSearcher = () => {
     setError(null);
     setKeyWord(value);
 
-    fetch(requestUrl,
-      {
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-        },
-      }
-    )
-    .then(response => {
-      if(!response.ok){
-        throw new Error(response.message);
-      }
-      return response.json();
-    })
-    .then(json => {
-      setArticles(json);
-      setLoading(false);
-    })
-    .catch(error => {
-      setError(error);
-      setLoading(false);
-      console.log(error);
-    });
+    requestApi(requestUrl);
   };
+
+  useEffect(() => {
+    const firstUrl = qiitaUrl + "stocks%3A%3E20";
+    requestApi(firstUrl);
+  }, []);
 
   return (
     <div className={blockName}>
