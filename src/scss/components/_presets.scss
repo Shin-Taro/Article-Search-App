@@ -1,0 +1,46 @@
+.presets{
+  width: 50%;
+  min-width: 530px;
+  margin: 50px auto 0;
+
+  @include mq(){
+    width: calc(100% - 30px);
+    min-width: 0;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  &__list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__item{
+    margin-top: 20px;
+
+    &:first-child{
+      margin-left: 0;
+    }
+  }
+
+  &__btn{
+    padding: 5px 20px;
+    background-color: $colorLightGray;
+    border: solid $colorWhite 1.5px;
+    border-radius: 20px;
+    color: $colorWhite;
+    font-size: 14px;
+    font-weight: bold;
+
+    &:hover{
+      cursor: pointer;
+      background-color: $colorDarkGreen;
+    }
+
+    &[data-active="true"]{
+      background-color: $colorGreen;
+    }
+  }
+}
