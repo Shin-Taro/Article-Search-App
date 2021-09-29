@@ -17,7 +17,7 @@ const ArticleSearcher = () => {
   const [error, setError] = useState(null);
   const [keyWord, setKeyWord] = useState("トレンド");
 
-  const requestApi = (url) => {
+  const requestApi = url => {
     fetch(url,
       {
         headers: {
@@ -41,11 +41,27 @@ const ArticleSearcher = () => {
       setLoading(false);
       console.log(error);
     });
-  }
+  };
+
+  const searchArticles = value => {
+    const escapedValue = encodeURIComponent(value);
+    const requestUrl = qiitaUrl + escapedValue;
+    setLoading(true);
+    setError(null);
+    setKeyWord(value);
+    requestApi(requestUrl);
+  };
+
+  const runPresets = preset => {
+    const requestUrl = qiitaUrl + preset.value;
+    setLoading(true);
+    setError(null);
+    setKeyWord(preset.name);
+    requestApi(requestUrl);
+  };
 
   const renderArticles = () => {
     let elements;
-
     if (error) {
       elements =  <div className={`${blockName}__message`}>{error.message}</div>
     } else if (loading) {
@@ -63,18 +79,7 @@ const ArticleSearcher = () => {
         );
       });
     }
-
     return elements;
-  };
-
-  const searchArticles = (value) => {
-    const escapedValue = encodeURIComponent(value);
-    const requestUrl = qiitaUrl + escapedValue;
-    setLoading(true);
-    setError(null);
-    setKeyWord(value);
-
-    requestApi(requestUrl);
   };
 
   useEffect(() => {
@@ -88,7 +93,9 @@ const ArticleSearcher = () => {
       <Search
         searchArticles={searchArticles}
       />
-      <Presets />
+      <Presets
+        runPresets={runPresets}
+      />
       <Container>
         <h1 className="container__title">{keyWord}</h1>
         <List
