@@ -1,12 +1,11 @@
 import React,  { useEffect, useState } from "react";
 import Article from "./Article";
 import Container from "./Container";
+import Controller from "./Controller";
 import Header from "./Header";
 import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
-
-const qiitaUrl = "https://qiita.com/api/v2/items?page=1&per_page=10&query="
 
 const apiToken = "e361893afc81fb5184aa0c3860f528a0f8473722";
 
@@ -16,8 +15,15 @@ const ArticleSearcher = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
   const [keyWord, setKeyWord] = useState("新着");
+  const [count, setCount] = useState(1);
+  const [value, setValue] = useState("created%3A%3E2021-08-01");
 
-  const requestApi = url => {
+  const firstHalf = `https://qiita.com/api/v2/items?page=`;
+  const latterHalf = `&per_page=10&query=`;
+  const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
+  const requestUrl = firstHalf + count + latterHalf + value;
+
+  const requestApi = (url) => {
     fetch(url,
       {
         headers: {
@@ -43,9 +49,16 @@ const ArticleSearcher = () => {
     });
   };
 
+  useEffect(() => {
+    requestApi(requestUrl);
+  }, []);
+
   const searchArticles = value => {
     const escapedValue = encodeURIComponent(value);
     const requestUrl = qiitaUrl + escapedValue;
+
+    setValue(escapedValue);
+    setCount(1);
     setLoading(true);
     setError(null);
     setKeyWord(value);
@@ -54,11 +67,34 @@ const ArticleSearcher = () => {
 
   const runPresets = preset => {
     const requestUrl = qiitaUrl + preset.value;
+
+    setValue(preset.value);
+    setCount(1);
     setLoading(true);
     setError(null);
     setKeyWord(preset.name);
     requestApi(requestUrl);
   };
+
+  const turnPage = e => {
+    const currentArrow = e.currentTarget.dataset.arrow;
+    let pageCount = count;
+
+    switch (currentArrow) {
+      case "prev":
+        pageCount--
+        break;
+      case "next":
+        pageCount++
+        break;
+      default:
+        break;
+    }
+
+    const url = firstHalf + pageCount + latterHalf + value;
+    setCount(pageCount);
+    requestApi(url);
+  }
 
   const renderArticles = () => {
     let elements;
@@ -82,11 +118,6 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-  useEffect(() => {
-    const firstUrl = qiitaUrl + "created%3A%3E2021-08-01";
-    requestApi(firstUrl);
-  }, []);
-
   return (
     <div className={blockName}>
       <Header />
@@ -98,6 +129,10 @@ const ArticleSearcher = () => {
       />
       <Container>
         <h1 className="container__title">{keyWord}</h1>
+        <Controller
+          count={count}
+          onClick={turnPage}
+        />
         <List
           renderItems={renderArticles}
         />
