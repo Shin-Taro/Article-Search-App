@@ -18,8 +18,10 @@ const ArticleSearcher = () => {
   const [count, setCount] = useState(1);
   const [value, setValue] = useState("created%3A%3E2021-08-01");
 
+  const firstHalf = `https://qiita.com/api/v2/items?page=`;
+  const latterHalf = `&per_page=10&query=`;
   const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
-  const requestUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=${value}`
+  const requestUrl = firstHalf + count + latterHalf + value;
 
   const requestApi = (url) => {
     fetch(url,
@@ -74,6 +76,26 @@ const ArticleSearcher = () => {
     requestApi(requestUrl);
   };
 
+  const turnPage = e => {
+    const currentArrow = e.currentTarget.dataset.arrow;
+    let pageCount = count;
+
+    switch (currentArrow) {
+      case "prev":
+        pageCount--
+        break;
+      case "next":
+        pageCount++
+        break;
+      default:
+        break;
+    }
+
+    const url = firstHalf + pageCount + latterHalf + value;
+    setCount(pageCount);
+    requestApi(url);
+  }
+
   const renderArticles = () => {
     let elements;
     if (error) {
@@ -109,6 +131,7 @@ const ArticleSearcher = () => {
         <h1 className="container__title">{keyWord}</h1>
         <Controller
           count={count}
+          onClick={turnPage}
         />
         <List
           renderItems={renderArticles}
