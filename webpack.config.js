@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
+const Dotenv = require('dotenv-webpack');
 
 const enabledSourceMap =  process.env.NODE_ENV !== 'production';
 
@@ -80,6 +81,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
