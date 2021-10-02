@@ -7,7 +7,7 @@ import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
 
-const apiToken = "e361893afc81fb5184aa0c3860f528a0f8473722";
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const ArticleSearcher = () => {
   const blockName = "articleSearcher";
@@ -27,7 +27,7 @@ const ArticleSearcher = () => {
     fetch(url,
       {
         headers: {
-          Authorization: `Bearer ${apiToken}`,
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
     )
