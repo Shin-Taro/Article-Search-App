@@ -1,12 +1,15 @@
 import React from "react";
 import { logOut } from "../firebase";
+import { useHistory } from 'react-router-dom';
 
 const SignOut = () => {
   const blockName = "SignOut";
+  const history = useHistory();
 
   const handleOnClick = (e) => {
     e.preventDefault();
     logOut();
+    history.push("/signin");
   }
 
   return(

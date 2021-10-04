@@ -1,4 +1,5 @@
-import React,  { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../context/AuthContext";
 import Article from "./Article";
 import Container from "./Container";
 import Controller from "./Controller";
@@ -7,6 +8,7 @@ import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
 import SignOut from "./SignOut";
+import { Redirect } from 'react-router-dom';
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -18,11 +20,14 @@ const ArticleSearcher = () => {
   const [keyWord, setKeyWord] = useState("新着");
   const [count, setCount] = useState(1);
   const [value, setValue] = useState("created%3A%3E2021-08-01");
+  const { user } = useAuthContext();
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
   const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
   const requestUrl = firstHalf + count + latterHalf + value;
+
+  let unmounted = false;
 
   const requestApi = (url) => {
     fetch(url,
@@ -40,24 +45,32 @@ const ArticleSearcher = () => {
       return response.json();
     })
     .then(json => {
-      setArticles(json);
-      setLoading(false);
+      if(!unmounted){
+        setArticles(json);
+        setLoading(false);
+      }else{
+        return false;
+      }
     })
     .catch(error => {
-      setError(error);
-      setLoading(false);
-      console.log(error);
+      if(!unmounted){
+        setError(error);
+        setLoading(false);
+        console.log(error);
+      }else{
+        return false;
+      }
     });
   };
 
   useEffect(() => {
     requestApi(requestUrl);
+    return () => {unmounted = true};
   }, []);
 
   const searchArticles = value => {
     const escapedValue = encodeURIComponent(value);
     const requestUrl = qiitaUrl + escapedValue;
-
     setValue(escapedValue);
     setCount(1);
     setLoading(true);
@@ -68,7 +81,6 @@ const ArticleSearcher = () => {
 
   const runPresets = preset => {
     const requestUrl = qiitaUrl + preset.value;
-
     setValue(preset.value);
     setCount(1);
     setLoading(true);
@@ -80,7 +92,6 @@ const ArticleSearcher = () => {
   const turnPage = e => {
     const currentArrow = e.currentTarget.dataset.arrow;
     let pageCount = count;
-
     switch (currentArrow) {
       case "prev":
         pageCount--
@@ -91,11 +102,10 @@ const ArticleSearcher = () => {
       default:
         break;
     }
-
     const url = firstHalf + pageCount + latterHalf + value;
     setCount(pageCount);
     requestApi(url);
-  }
+  };
 
   const renderArticles = () => {
     let elements;
@@ -119,28 +129,32 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-  return (
-    <div className={blockName}>
-      <Header />
-      <SignOut />
-      <Search
-        searchArticles={searchArticles}
-      />
-      <Presets
-        runPresets={runPresets}
-      />
-      <Container>
-        <h1 className="container__title">{keyWord}</h1>
-        <Controller
-          count={count}
-          onClick={turnPage}
+  if(!user){
+    return <Redirect to="/signin" />;
+  }else{
+    return (
+      <div className={blockName}>
+        <Header />
+        <SignOut />
+        <Search
+          searchArticles={searchArticles}
         />
-        <List
-          renderItems={renderArticles}
+        <Presets
+          runPresets={runPresets}
         />
-      </Container>
-    </div>
-  );
+        <Container>
+          <h1 className="container__title">{keyWord}</h1>
+          <Controller
+            count={count}
+            onClick={turnPage}
+          />
+          <List
+            renderItems={renderArticles}
+          />
+        </Container>
+      </div>
+    );
+  };
 };
 
 export default ArticleSearcher;

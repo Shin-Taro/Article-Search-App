@@ -3,11 +3,11 @@ import { getFirestore } from'firebase/firestore';
 import config from './config';
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 
-export const firebase = initializeApp(config);
+initializeApp(config);
 export const db = new getFirestore();
 export const googleProvider = new GoogleAuthProvider();
 
-export const auth = getAuth();
+export const auth = new getAuth();
 
 export const signIn = () => {
   signInWithRedirect(auth, googleProvider);
