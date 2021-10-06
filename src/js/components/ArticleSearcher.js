@@ -24,7 +24,7 @@ const ArticleSearcher = () => {
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
-  const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
+  const qiitaUrl = `https://qiita.com/api/v2/items?page=1&per_page=10&query=`
   const requestUrl = firstHalf + count + latterHalf + value;
 
   let unmounted = false;
@@ -104,6 +104,8 @@ const ArticleSearcher = () => {
     }
     const url = firstHalf + pageCount + latterHalf + value;
     setCount(pageCount);
+    setLoading(true);
+    setError(null);
     requestApi(url);
   };
 
