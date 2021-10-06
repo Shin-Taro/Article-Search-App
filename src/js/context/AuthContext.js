@@ -22,9 +22,14 @@ export const AuthProvider = ({children}) => {
     }
   },[]);
 
-  return(
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  if(loading){
+    return <p>Now loading...</p>
+  }else{
+    return(
+      <AuthContext.Provider value={value}>
+        {!loading && children}
+      </AuthContext.Provider>
+    );
+  }
+
 };
