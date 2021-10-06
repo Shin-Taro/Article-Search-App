@@ -24,5 +24,5 @@ export const logOut = () => {
 };
 
 export const useAuth = () => {
-  useAuthState(auth);
+  return useAuthState(auth);
 };
