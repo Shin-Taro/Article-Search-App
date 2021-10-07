@@ -7,7 +7,6 @@ import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firesto
 import config from './config';
 
 // react-firebase-hooksがv9に対応していないためfirestore関連の記述はv8準拠 //
-
 // const app = initializeApp(config);
 // export const db = new getFirestore(app);
 firebase.initializeApp(config);
@@ -67,5 +66,14 @@ export const useDocData = (ref) => {
 
 export const usePresetsData = (user) => {
   const ref = db.collection("users").doc(user.uid).collection("presets");
-  return useCollectionData(ref)
+  return useCollectionData(ref, {idField: "id"});
+};
+
+export const changeActive = (user, prev, current) => {
+  const prevRef = db.collection("users").doc(user.uid).collection("presets").doc(prev);
+  const currentRef = db.collection("users").doc(user.uid).collection("presets").doc(current);
+  const batch = db.batch();
+  batch.update(prevRef, {isActive: false});
+  batch.update(currentRef, {isActive: true});
+  batch.commit().catch(error => {console.log(error)});
 };
