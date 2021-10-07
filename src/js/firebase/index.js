@@ -1,10 +1,9 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
-// import { initializeApp } from 'firebase/app';
-// import { doc, setDoc } from "firebase/firestore";
+
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
 import config from './config';
 
 // react-firebase-hooksがv9に対応していないためfirestore関連の記述はv8準拠 //
@@ -64,4 +63,9 @@ export const getUser = (user) => {
 
 export const useDocData = (ref) => {
   return useDocumentData(ref);
+};
+
+export const usePresetsData = (user) => {
+  const ref = db.collection("users").doc(user.uid).collection("presets");
+  return useCollectionData(ref)
 };
