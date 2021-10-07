@@ -1,36 +1,28 @@
 import React from "react";
 import { useUserContext } from "../context/UserContext";
+import { useAuthContext } from "../context/AuthContext";
+import { changeActive } from "../firebase";
 
 const Presets = props => {
   const blockName = "presets";
+  const {user} = useAuthContext();
   const {presets, loading} = useUserContext();
 
-  // const switchActive = target => {
-  //   const list = presets.slice();
-  //   const newList = list.map(item => {
-  //     item.isActive = false;
-  //     return item;
-  //   });
-  //   const index = newList.findIndex(({value}) => value === target);
+  const handleOnClick = e => {
+    const currentValue = e.currentTarget.dataset.value;
+    const target = presets.find(v => v.value === currentValue);
+    const currentId = target.id;
+    const prev = presets.find(v => v.isActive === true);
+    const prevId = prev.id;
 
-  //   newList[index].isActive = true;
-  //   return newList
-  // }
-
-  // const handleOnClick = e => {
-    // const list = presets.slice();
-    // const currentValue = e.currentTarget.dataset.value;
-    // const target = list.find(v => v.value ===currentValue);
-    // const newPresets = switchActive(currentValue);
-
-    // setPresets(newPresets);
-    // props.runPresets(target);
-  // }
+    changeActive(user, prevId, currentId);
+    props.runPresets(target);
+  };
 
   const renderPresets = () => {
-    const list = presets.map((item, index) => {
+    const list = presets.map((item) => {
       return(
-      <li key={item.value + index} className={`${blockName}__item`}>
+      <li key={item.id} className={`${blockName}__item`}>
         <button 
           className={`${blockName}__btn`} 
           type="button"
@@ -45,7 +37,6 @@ const Presets = props => {
     });
     return list;
   };
-
 
   if(loading){
     return <p>Now loading your Presets...</p>
