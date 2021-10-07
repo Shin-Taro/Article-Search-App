@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuthContext } from "../context/AuthContext";
 import Article from "./Article";
 import Container from "./Container";
 import Controller from "./Controller";
@@ -19,7 +18,6 @@ const ArticleSearcher = () => {
   const [keyWord, setKeyWord] = useState("新着");
   const [count, setCount] = useState(1);
   const [value, setValue] = useState("created%3A%3E2021-08-01");
-  const { user } = useAuthContext();
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
