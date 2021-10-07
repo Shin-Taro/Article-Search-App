@@ -8,7 +8,6 @@ import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
 import SignOut from "./SignOut";
-import { Redirect } from 'react-router-dom';
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -131,9 +130,6 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-  if(!user){
-    return <Redirect to="/signin" />;
-  }else{
     return (
       <div className={blockName}>
         <Header />
@@ -156,7 +152,6 @@ const ArticleSearcher = () => {
         </Container>
       </div>
     );
-  };
 };
 
 export default ArticleSearcher;
