@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuthContext } from "../context/AuthContext";
 import Article from "./Article";
 import Container from "./Container";
 import Controller from "./Controller";
@@ -8,7 +7,6 @@ import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
 import SignOut from "./SignOut";
-import { Redirect } from 'react-router-dom';
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -20,11 +18,10 @@ const ArticleSearcher = () => {
   const [keyWord, setKeyWord] = useState("新着");
   const [count, setCount] = useState(1);
   const [value, setValue] = useState("created%3A%3E2021-08-01");
-  const { user } = useAuthContext();
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
-  const qiitaUrl = `https://qiita.com/api/v2/items?page=${count}&per_page=10&query=`
+  const qiitaUrl = `https://qiita.com/api/v2/items?page=1&per_page=10&query=`
   const requestUrl = firstHalf + count + latterHalf + value;
 
   let unmounted = false;
@@ -104,6 +101,8 @@ const ArticleSearcher = () => {
     }
     const url = firstHalf + pageCount + latterHalf + value;
     setCount(pageCount);
+    setLoading(true);
+    setError(null);
     requestApi(url);
   };
 
@@ -129,9 +128,6 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-  if(!user){
-    return <Redirect to="/signin" />;
-  }else{
     return (
       <div className={blockName}>
         <Header />
@@ -154,7 +150,6 @@ const ArticleSearcher = () => {
         </Container>
       </div>
     );
-  };
 };
 
 export default ArticleSearcher;
