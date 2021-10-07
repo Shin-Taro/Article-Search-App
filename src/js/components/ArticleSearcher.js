@@ -128,28 +128,28 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-    return (
-      <div className={blockName}>
-        <Header />
-        <SignOut />
-        <Search
-          searchArticles={searchArticles}
+  return (
+    <div className={blockName}>
+      <Header />
+      <SignOut />
+      <Search
+        searchArticles={searchArticles}
+      />
+      <Presets
+        runPresets={runPresets}
+      />
+      <Container>
+        <h1 className="container__title">{keyWord}</h1>
+        <Controller
+          count={count}
+          onClick={turnPage}
         />
-        <Presets
-          runPresets={runPresets}
+        <List
+          renderItems={renderArticles}
         />
-        <Container>
-          <h1 className="container__title">{keyWord}</h1>
-          <Controller
-            count={count}
-            onClick={turnPage}
-          />
-          <List
-            renderItems={renderArticles}
-          />
-        </Container>
-      </div>
-    );
+      </Container>
+    </div>
+  );
 };
 
 export default ArticleSearcher;
