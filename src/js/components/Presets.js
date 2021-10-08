@@ -13,11 +13,10 @@ const Presets = props => {
 
   const handleOnClick = e => {
     const prev = presets.find(v => v.isActive === true);
-    const prevId = prev.id;
     const currentId = e.currentTarget.dataset.id;
     const target = presets.find(v => v.id === currentId);
 
-    changeActive(user, prevId, currentId);
+    changeActive(user, prev, currentId);
     props.runPresets(target);
   };
 

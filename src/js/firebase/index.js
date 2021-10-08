@@ -1,6 +1,5 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
@@ -71,10 +70,12 @@ export const usePresetsData = (user) => {
 };
 
 export const changeActive = (user, prev, current) => {
-  const prevRef = db.collection("users").doc(user.uid).collection("presets").doc(prev);
-  const currentRef = db.collection("users").doc(user.uid).collection("presets").doc(current);
   const batch = db.batch();
-  batch.update(prevRef, {isActive: false});
+  if(prev){
+    const prevRef = db.collection("users").doc(user.uid).collection("presets").doc(prev.id);
+    batch.update(prevRef, {isActive: false});
+  }
+  const currentRef = db.collection("users").doc(user.uid).collection("presets").doc(current);
   batch.update(currentRef, {isActive: true});
   batch.commit().catch(error => {console.log(error)});
 };
