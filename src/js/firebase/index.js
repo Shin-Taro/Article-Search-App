@@ -1,5 +1,5 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/firestore'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -30,24 +30,26 @@ export const useAuth = () => {
 
 export const getUser = (user) => {
   const docRef = db.collection("users").doc(user.uid);
+  const colRef = docRef.collection("presets");
+
   docRef.get().then((doc) => {
     if(!doc.exists){
       docRef.set({
         name: user.displayName
       }).then(() => {
-        docRef.collection("presets").doc("news").set({
+        colRef.add({
           name: "新着",
           value: "created%3A%3E2021-08-01",
           isActive: true,
         });
       }).then(() => {
-        docRef.collection("presets").doc("topics").set({
+        colRef.add({
           name: "人気",
           value: "created%3A%3E2021-08-01+stocks%3A%3E20",
           isActive: false,
         });
       }).then(() => {
-        docRef.collection("presets").doc("legends").set({
+        colRef.add({
           name: "殿堂入り",
           value: "stocks%3A%3E5000",
           isActive: false,
@@ -57,7 +59,6 @@ export const getUser = (user) => {
       });
     }
   });
-  return docRef;
 };
 
 export const useDocData = (ref) => {
