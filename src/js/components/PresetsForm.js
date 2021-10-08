@@ -49,17 +49,19 @@ const PresetsForm = () => {
 
   return(
     <form className={blockName} onSubmit={(e) => handleOnSubmit(e)}>
+      <h1 className={`${blockName}__title`}>カスタムプリセットの作成</h1>
       <p>{message}</p>
-      <p>プリセットの名前</p>
-      <input className={`${blockName}__text`} 
-       type="text"
-       name="name"
-       value={values.name}
-       placeholder="name"
-       onChange={(e) => handleOnChange(e)} />
 
-      <p>検索値</p>
-      <input className={`${blockName}__text`}
+      <p className={`${blockName}__text`}>プリセットの名前</p>
+      <input className={`${blockName}__input`} 
+        type="text"
+        name="name"
+        value={values.name}
+        placeholder="name"
+        onChange={(e) => handleOnChange(e)} />
+
+      <p className={`${blockName}__text`}>検索値</p>
+      <input className={`${blockName}__input`}
       type="text"
       name="query"
       value={values.query}
