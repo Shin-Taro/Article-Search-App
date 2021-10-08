@@ -88,3 +88,14 @@ export const addPreset = (user, name, value) => {
     isActive: false,
   }).catch((error) => {console.log(error)});
 };
+
+export const deletePresets = (user, list) => {
+  const ref = db.collection("users").doc(user.uid).collection("presets");
+  const batch = db.batch();
+  list.forEach(element => {
+    batch.delete(ref.doc(element));
+  });
+  batch.commit().catch(error => {
+    console.log(error);
+  });
+};
