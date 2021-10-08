@@ -8,7 +8,6 @@ const Modal = props => {
       <div className={blockName}>
         <div className={`${blockName}__content`}>
           {props.children}
-          <button className={`${blockName}__btn`} type="button" onClick={() => props.onClick()}>X</button>
         </div>
       </div>
     );

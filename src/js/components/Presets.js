@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { changeActive } from "../firebase";
-import PresetsForm from "./PresetsForm";
 import Modal from "./Modal";
+import Console from "./Console";
 
 const Presets = props => {
   const blockName = "presets";
@@ -12,11 +12,10 @@ const Presets = props => {
   const [show, setShow] = useState(false);
 
   const handleOnClick = e => {
-    const currentValue = e.currentTarget.dataset.value;
-    const target = presets.find(v => v.value === currentValue);
-    const currentId = target.id;
     const prev = presets.find(v => v.isActive === true);
     const prevId = prev.id;
+    const currentId = e.currentTarget.dataset.id;
+    const target = presets.find(v => v.id === currentId);
 
     changeActive(user, prevId, currentId);
     props.runPresets(target);
@@ -29,7 +28,7 @@ const Presets = props => {
         <button 
           className={`${blockName}__btn`} 
           type="button"
-          data-value={item.value}
+          data-id={item.id}
           data-active={item.isActive}
           onClick={(e) => handleOnClick(e)}
         >
@@ -51,8 +50,8 @@ const Presets = props => {
     return(
       <div className={blockName}>
         <button className={`${blockName}__add`} type="button" onClick={() => toggleModal()}>追加</button>
-        <Modal show={show} onClick={toggleModal}>
-          <PresetsForm />
+        <Modal show={show} onClick={toggleModal} >
+          <Console/>
         </Modal>
         <ul className={`${blockName}__list`}>
           {renderPresets()}
