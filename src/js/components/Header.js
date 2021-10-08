@@ -14,8 +14,14 @@ const Header = () => {
   return(
     <header className={blockName}>
       <h1 className={`${blockName}__title`}>Qiita Customized App</h1>
-      <SignOut />
-      <button className={`${blockName}__modal`} type="button" onClick={() => toggleModal()}>プリセット管理</button>
+      <div className={`${blockName}__btns`}>
+        <SignOut />
+        <button className={`${blockName}__modal`}
+        type="button"
+        onClick={() => toggleModal()}>
+          プリセット管理
+        </button>
+      </div>
         <Modal show={show} onClick={toggleModal} >
           <Console/>
         </Modal>

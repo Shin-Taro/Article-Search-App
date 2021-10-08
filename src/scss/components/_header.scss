@@ -4,7 +4,7 @@
   top: 0;
   left:  0;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   width: 100%;
   height: 100px;
@@ -15,6 +15,11 @@
   }
 
   &__title{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     color: $colorWhite;
     font-size: 36px;
 
@@ -23,7 +28,15 @@
     }
   }
 
+  &__btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+  }
+
   &__modal{
+    margin-left: 20px;
     padding: 5px 20px;
     background-color: $colorWhite;
     border: solid $colorLightGray 1.5px;
