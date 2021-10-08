@@ -39,7 +39,7 @@ export const getUser = (user) => {
         colRef.add({
           name: "新着",
           value: "created%3A%3E2021-08-01",
-          isActive: true,
+          isActive: false,
         });
       }).then(() => {
         colRef.add({
