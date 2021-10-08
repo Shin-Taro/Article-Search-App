@@ -48,7 +48,7 @@ const Presets = props => {
   }else{
     return(
       <div className={blockName}>
-        <button className={`${blockName}__add`} type="button" onClick={() => toggleModal()}>プリセット管理</button>
+        <button className={`${blockName}__modal`} type="button" onClick={() => toggleModal()}>プリセット管理</button>
         <Modal show={show} onClick={toggleModal} >
           <Console/>
         </Modal>

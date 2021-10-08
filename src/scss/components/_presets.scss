@@ -2,6 +2,7 @@
   width: 50%;
   min-width: 530px;
   margin: 50px auto 0;
+  text-align: center;
 
   @include mq(){
     width: calc(100% - 30px);
@@ -41,6 +42,18 @@
 
     &[data-active="true"]{
       background-color: $colorGreen;
+    }
+  }
+
+  &__modal{
+    padding: 5px 20px;
+    background-color: $colorWhite;
+    border: solid $colorLightGray 1.5px;
+    border-radius: 10px;
+
+    &:hover{
+      background-color: $colorLightGray;
+      border: solid $colorWhite 2px;
     }
   }
 }
