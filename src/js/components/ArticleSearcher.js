@@ -6,7 +6,6 @@ import Header from "./Header";
 import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
-import SignOut from "./SignOut";
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -124,7 +123,6 @@ const ArticleSearcher = () => {
   return (
     <div className={blockName}>
       <Header />
-      <SignOut />
       <Search
         searchArticles={searchArticles}
       />
