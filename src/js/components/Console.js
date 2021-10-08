@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import PresetsForm from "./PresetsForm";
 import PresetsDelete from "./PresetsDelete";
 
 const Console = () => {
@@ -6,7 +7,7 @@ const Console = () => {
   const [tab, setTab] = useState("create");
 
   const toggleTabs = (e) => {
-    const type = e.e.currentTarget.dataset.type;
+    const type = e.currentTarget.dataset.type;
     setTab(type);
   };
 
@@ -16,8 +17,8 @@ const Console = () => {
       <button className={`${blockName}__tabs`} type="button" data-type="create" onClick={(e) => toggleTabs(e)}>create</button>
       <button className={`${blockName}__tabs`} type="button" data-type="delete" onClick={(e) => toggleTabs(e)}>delete</button>
       <div className={`${blockName}__container`}>
-        {type === "create" && <PresetsForm />}
-        {type === "delete" && <PresetsDelete />}
+        {tab === "create" && <PresetsForm />}
+        {tab === "delete" && <PresetsDelete />}
       </div>
     </div>
   )
