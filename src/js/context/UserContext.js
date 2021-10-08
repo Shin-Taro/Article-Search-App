@@ -1,6 +1,6 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
-import { getUser, useDocData } from "../firebase";
+import { getUser, useDocData, usePresetsData } from "../firebase";
 import { Redirect } from 'react-router-dom';
 
 const UserContext = createContext();
@@ -13,9 +13,13 @@ export const UserProvider = ({children}) => {
   if(!user){
     return <Redirect to="/signin" />;
   }else{
-    const docRef = getUser(user);
-    const [userData, loading, error] = useDocData(docRef);
-    const value = {userData, loading, error};
+    const [presets, loading] = usePresetsData(user);
+    const value = {presets, loading};
+    console.log(presets);
+
+    useEffect(() => {
+      getUser(user);
+    }, []);
 
     return(
       <UserContext.Provider value={value}>

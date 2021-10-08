@@ -1,66 +1,33 @@
 import React, { useState } from "react";
+import { useUserContext } from "../context/UserContext";
+import { useAuthContext } from "../context/AuthContext";
+import { changeActive } from "../firebase";
+import Modal from "./Modal";
+import Console from "./Console";
 
 const Presets = props => {
   const blockName = "presets";
-  const defaultPresets = [
-    {
-      name: "新着",
-      value: "created%3A%3E2021-08-01",
-      isActive: true,
-    },
-    {
-      name: "人気",
-      value: "created%3A%3E2021-08-01+stocks%3A%3E20",
-      isActive: false,
-    },
-    {
-      name: "殿堂入り",
-      value: "stocks%3A%3E5000",
-      isActive: false,
-    },
-    {
-      name: "https",
-      value: "https",
-      isActive: false,
-    },
-    {
-      name: "javascript",
-      value: "javascript",
-      isActive: false,
-    },
-  ];
-  const [presets, setPresets] = useState(defaultPresets);
-
-  const switchActive = target => {
-    const list = presets.slice();
-    const newList = list.map(item => {
-      item.isActive = false;
-      return item;
-    });
-    const index = newList.findIndex(({value}) => value === target);
-
-    newList[index].isActive = true;
-    return newList
-  }
+  const {user} = useAuthContext();
+  const {presets, loading} = useUserContext();
+  const [show, setShow] = useState(false);
 
   const handleOnClick = e => {
-    const list = presets.slice();
-    const currentValue = e.currentTarget.dataset.value;
-    const target = list.find(v => v.value ===currentValue);
-    const newPresets = switchActive(currentValue);
+    const prev = presets.find(v => v.isActive === true);
+    const currentId = e.currentTarget.dataset.id;
+    const target = presets.find(v => v.id === currentId);
 
-    setPresets(newPresets);
+    changeActive(user, prev, currentId);
     props.runPresets(target);
-  }
+  };
 
   const renderPresets = () => {
-    const list = presets.map((item, index) => {
+    const list = presets.map((item) => {
       return(
-      <li key={item.value + index} className={`${blockName}__item`}>
+      <li key={item.id} className={`${blockName}__item`}>
         <button 
           className={`${blockName}__btn`} 
           type="button"
-          data-value={item.value}
+          data-id={item.id}
           data-active={item.isActive}
           onClick={(e) => handleOnClick(e)}
         >
@@ -72,13 +39,25 @@ const Presets = props => {
     return list;
   };
 
-  return(
-    <div className={blockName}>
-      <ul className={`${blockName}__list`}>
-        {renderPresets()}
-      </ul>
-    </div>
-  );
+  const toggleModal = () => {
+    setShow(!show);
+  };
+
+  if(loading){
+    return <p>Now loading your Presets...</p>
+  }else{
+    return(
+      <div className={blockName}>
+        <button className={`${blockName}__add`} type="button" onClick={() => toggleModal()}>プリセット管理</button>
+        <Modal show={show} onClick={toggleModal} >
+          <Console/>
+        </Modal>
+        <ul className={`${blockName}__list`}>
+          {renderPresets()}
+        </ul>
+      </div>
+    );
+  }
 };
 
 export default Presets;

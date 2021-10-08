@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Article from "./Article";
 import Container from "./Container";
 import Controller from "./Controller";
@@ -12,18 +12,16 @@ const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const ArticleSearcher = () => {
   const blockName = "articleSearcher";
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
-  const [keyWord, setKeyWord] = useState("新着");
+  const [keyWord, setKeyWord] = useState("キーワードを入力orプリセットボタンを押す");
   const [count, setCount] = useState(1);
   const [value, setValue] = useState("created%3A%3E2021-08-01");
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
   const qiitaUrl = `https://qiita.com/api/v2/items?page=1&per_page=10&query=`
-  const requestUrl = firstHalf + count + latterHalf + value;
-
   let unmounted = false;
 
   const requestApi = (url) => {
@@ -59,11 +57,6 @@ const ArticleSearcher = () => {
       }
     });
   };
-
-  useEffect(() => {
-    requestApi(requestUrl);
-    return () => {unmounted = true};
-  }, []);
 
   const searchArticles = value => {
     const escapedValue = encodeURIComponent(value);
@@ -113,7 +106,7 @@ const ArticleSearcher = () => {
     } else if (loading) {
       elements = <div className={`${blockName}__message`}>Now loading...</div>
     } else if (articles.length === 0){
-      elements = <div className={`${blockName}__message`}>検索結果：該当なし</div>
+      elements = <div className={`${blockName}__message`}>該当なし</div>
     } else {
       elements = articles.map(article => {
         return(
@@ -128,28 +121,28 @@ const ArticleSearcher = () => {
     return elements;
   };
 
-    return (
-      <div className={blockName}>
-        <Header />
-        <SignOut />
-        <Search
-          searchArticles={searchArticles}
+  return (
+    <div className={blockName}>
+      <Header />
+      <SignOut />
+      <Search
+        searchArticles={searchArticles}
+      />
+      <Presets
+        runPresets={runPresets}
+      />
+      <Container>
+        <h1 className="container__title">{keyWord}</h1>
+        <Controller
+          count={count}
+          onClick={turnPage}
         />
-        <Presets
-          runPresets={runPresets}
+        <List
+          renderItems={renderArticles}
         />
-        <Container>
-          <h1 className="container__title">{keyWord}</h1>
-          <Controller
-            count={count}
-            onClick={turnPage}
-          />
-          <List
-            renderItems={renderArticles}
-          />
-        </Container>
-      </div>
-    );
+      </Container>
+    </div>
+  );
 };
 
 export default ArticleSearcher;
