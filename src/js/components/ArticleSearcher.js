@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Article from "./Article";
 import Container from "./Container";
 import Controller from "./Controller";
