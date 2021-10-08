@@ -78,3 +78,12 @@ export const changeActive = (user, prev, current) => {
   batch.update(currentRef, {isActive: true});
   batch.commit().catch(error => {console.log(error)});
 };
+
+export const addPreset = (user, name, value) => {
+  const ref = db.collection("users").doc(user.uid).collection("presets");
+  ref.add({
+    name: name,
+    value: value,
+    isActive: false,
+  }).catch((error) => {console.log(error)});
+};
