@@ -7,7 +7,7 @@ const Modal = props => {
     return(
       <div className={blockName}>
         <div className={`${blockName}__content`}>
-          <h1 className={`${blockName}__titile`}>プレセットを追加</h1>
+          {props.children}
           <button className={`${blockName}__btn`} type="button" onClick={() => props.onClick()}>X</button>
         </div>
       </div>

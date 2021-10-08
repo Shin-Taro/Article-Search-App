@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { changeActive } from "../firebase";
+import PresetsForm from "./PresetsForm";
 import Modal from "./Modal";
 
 const Presets = props => {
@@ -50,10 +51,9 @@ const Presets = props => {
     return(
       <div className={blockName}>
         <button className={`${blockName}__add`} type="button" onClick={() => toggleModal()}>追加</button>
-        <Modal
-          show={show}
-          onClick={toggleModal}
-        />
+        <Modal show={show} onClick={toggleModal}>
+          <PresetsForm />
+        </Modal>
         <ul className={`${blockName}__list`}>
           {renderPresets()}
         </ul>
