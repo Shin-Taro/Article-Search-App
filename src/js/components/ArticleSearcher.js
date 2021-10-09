@@ -83,7 +83,11 @@ const ArticleSearcher = () => {
     let pageCount = count;
     switch (currentArrow) {
       case "prev":
-        pageCount--
+        if(pageCount <= 1){
+          return false;
+        }else{
+          pageCount--
+        }
         break;
       case "next":
         pageCount++
