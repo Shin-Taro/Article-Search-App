@@ -6,7 +6,6 @@ import Header from "./Header";
 import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
-import SignOut from "./SignOut";
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
@@ -84,7 +83,11 @@ const ArticleSearcher = () => {
     let pageCount = count;
     switch (currentArrow) {
       case "prev":
-        pageCount--
+        if(pageCount <= 1){
+          return false;
+        }else{
+          pageCount--
+        }
         break;
       case "next":
         pageCount++
@@ -124,7 +127,6 @@ const ArticleSearcher = () => {
   return (
     <div className={blockName}>
       <Header />
-      <SignOut />
       <Search
         searchArticles={searchArticles}
       />

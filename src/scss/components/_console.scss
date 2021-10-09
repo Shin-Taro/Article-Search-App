@@ -1,0 +1,31 @@
+.console{
+  &__tabList{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  &__tab{
+    display: block;
+    background-color: $colorDarkGray;
+    border: solid $colorLightGray 1px;
+    border-radius: 20px;
+    color: $colorLightGray;
+    font-size: 18px;
+
+    &:hover{
+      cursor: pointer;
+    }
+
+    &[data-active="true"]{
+      background-color: $colorLightGray;
+      border: solid $colorWhite 1px;
+      color: $colorWhite;
+    }
+  }
+
+  &__container{
+    margin-top: 30px;
+  }
+}

@@ -3,7 +3,7 @@ import { logOut } from "../firebase";
 import { useHistory } from 'react-router-dom';
 
 const SignOut = () => {
-  const blockName = "SignOut";
+  const blockName = "signOut";
   const history = useHistory();
 
   const handleOnClick = (e) => {

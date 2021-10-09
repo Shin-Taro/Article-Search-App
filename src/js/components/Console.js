@@ -13,8 +13,22 @@ const Console = () => {
 
   return(
     <div className={blockName}>
-      <button className={`${blockName}__tabs`} type="button" data-type="create" onClick={(e) => toggleTabs(e)}>create</button>
-      <button className={`${blockName}__tabs`} type="button" data-type="delete" onClick={(e) => toggleTabs(e)}>delete</button>
+      <div className={`${blockName}__tabList`}>
+        <button className={`${blockName}__tab`}
+          type="button"
+          data-type="create"
+          data-active={tab === "create"}
+          onClick={(e) => toggleTabs(e)}>
+            create
+        </button>
+        <button className={`${blockName}__tab`}
+          type="button"
+          data-type="delete"
+          data-active={tab === "delete"}
+          onClick={(e) => toggleTabs(e)}>
+            delete
+        </button>
+      </div>
       <div className={`${blockName}__container`}>
         {tab === "create" && <PresetsForm />}
         {tab === "delete" && <PresetsDelete />}

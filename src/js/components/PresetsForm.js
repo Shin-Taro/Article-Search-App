@@ -5,7 +5,7 @@ import { addPreset } from "../firebase";
 const PresetsForm = () => {
   const blockName = "presetsForm";
   const [values, setValues] = useState({id:"", name:"", query:""});
-  const [message, setMessage] = useState("値を入力してください");
+  const [message, setMessage] = useState("");
   const {user} = useAuthContext();
 
   const handleOnChange = (e) => {
@@ -48,28 +48,30 @@ const PresetsForm = () => {
   }
 
   return(
-    <form className={blockName} onSubmit={(e) => handleOnSubmit(e)}>
+    <div className={blockName}>
       <h1 className={`${blockName}__title`}>カスタムプリセットの作成</h1>
-      <p>{message}</p>
+      <p className={`${blockName}__message`}>{message}</p>
 
-      <p className={`${blockName}__text`}>プリセットの名前</p>
-      <input className={`${blockName}__input`} 
+      <form className={`${blockName}__form`} onSubmit={(e) => handleOnSubmit(e)}>
+        <p className={`${blockName}__text`}>プリセットの名前</p>
+        <input className={`${blockName}__input`} 
+          type="text"
+          name="name"
+          value={values.name}
+          placeholder="name"
+          onChange={(e) => handleOnChange(e)} />
+
+        <p className={`${blockName}__text`}>検索値</p>
+        <input className={`${blockName}__input`}
         type="text"
-        name="name"
-        value={values.name}
-        placeholder="name"
+        name="query"
+        value={values.query}
+        placeholder="query"
         onChange={(e) => handleOnChange(e)} />
 
-      <p className={`${blockName}__text`}>検索値</p>
-      <input className={`${blockName}__input`}
-      type="text"
-      name="query"
-      value={values.query}
-      placeholder="query"
-      onChange={(e) => handleOnChange(e)} />
-
-      <button className={`${blockName}__btn`} type="submit">作成</button>
-    </form>
+        <button className={`${blockName}__btn`} type="submit">作成</button>
+      </form>
+    </div>
   );
 };
 

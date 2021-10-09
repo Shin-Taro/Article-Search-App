@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { changeActive } from "../firebase";
-import Modal from "./Modal";
-import Console from "./Console";
 
 const Presets = props => {
   const blockName = "presets";
   const {user} = useAuthContext();
   const {presets, loading} = useUserContext();
-  const [show, setShow] = useState(false);
 
   const handleOnClick = e => {
     const prev = presets.find(v => v.isActive === true);
@@ -39,19 +36,11 @@ const Presets = props => {
     return list;
   };
 
-  const toggleModal = () => {
-    setShow(!show);
-  };
-
   if(loading){
     return <p>Now loading your Presets...</p>
   }else{
     return(
       <div className={blockName}>
-        <button className={`${blockName}__add`} type="button" onClick={() => toggleModal()}>プリセット管理</button>
-        <Modal show={show} onClick={toggleModal} >
-          <Console/>
-        </Modal>
         <ul className={`${blockName}__list`}>
           {renderPresets()}
         </ul>

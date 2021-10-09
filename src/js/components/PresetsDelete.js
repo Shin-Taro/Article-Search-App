@@ -48,7 +48,9 @@ const PresetsDelete = () => {
   return(
     <div className={blockName}>
       <h1 className={`${blockName}__title`}>プリセットの削除</h1>
-      {renderList()}
+      <div className={`${blockName}__checkList`}>
+        {renderList()}
+      </div>
       <button className={`${blockName}__btn`} type="button" onClick={() => handleOnClick()}>削除</button>
     </div>
   );
