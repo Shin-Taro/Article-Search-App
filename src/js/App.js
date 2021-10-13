@@ -1,6 +1,6 @@
 import React from "react";
 import ArticleSearcher from "./components/ArticleSearcher";
-import SignIn from "./components/Signin";
+import SignIn from "./components/SignIn";
 import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter, Route } from 'react-router-dom';
 import { UserProvider } from "./context/UserContext";
