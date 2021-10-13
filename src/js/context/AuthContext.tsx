@@ -1,9 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { useAuth } from "../firebase/index";
 
-type User = {} | undefined;
-
-const AuthContext = createContext<User>(undefined);
+const AuthContext = createContext<any>(undefined);
 
 export const useAuthContext = () => useContext(AuthContext);
 
