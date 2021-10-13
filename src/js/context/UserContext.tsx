@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
-import { getUser, usePresetsData } from "../firebase/index";
+import { getUser, usePresetsData } from "../firebase";
 import { Redirect } from 'react-router-dom';
 
 const UserContext = createContext<any>(undefined);
