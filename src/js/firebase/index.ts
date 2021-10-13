@@ -2,8 +2,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import config from './config';
+import { FirebaseError } from '@firebase/util';
 
 // react-firebase-hooksがv9に対応していないためfirestore関連の記述はv8準拠 //
 // const app = initializeApp(config);
@@ -11,23 +12,23 @@ import config from './config';
 firebase.initializeApp(config);
 export const db = firebase.firestore();
 export const googleProvider = new GoogleAuthProvider();
-export const auth = new getAuth();
+export const auth = getAuth();
 
-export const signIn = () => {
+export const signIn = ():void => {
   signInWithRedirect(auth, googleProvider);
 };
 
-export const logOut = () => {
+export const logOut = ():void => {
   signOut(auth).catch((error) => {
     console.log(error);
   });
 };
 
-export const useAuth = () => {
+export const useAuth = (): [any, boolean, any] => {
   return useAuthState(auth);
 };
 
-export const getUser = (user) => {
+export const getUser = (user:any):void => {
   const docRef = db.collection("users").doc(user.uid);
   const colRef = docRef.collection("presets");
 
@@ -60,16 +61,21 @@ export const getUser = (user) => {
   });
 };
 
-export const useDocData = (ref) => {
-  return useDocumentData(ref);
-};
+type CollectionData = [any[] | undefined, boolean, FirebaseError | undefined];
 
-export const usePresetsData = (user) => {
+export const usePresetsData = (user:any):CollectionData => {
   const ref = db.collection("users").doc(user.uid).collection("presets");
   return useCollectionData(ref, {idField: "id"});
 };
 
-export const changeActive = (user, prev, current) => {
+interface Preset {
+  name:string,
+  value:string,
+  isActive:boolean
+  id:string
+};
+
+export const changeActive = (user:any, prev:Preset, current:string): void => {
   const batch = db.batch();
   if(prev){
     const prevRef = db.collection("users").doc(user.uid).collection("presets").doc(prev.id);
@@ -80,7 +86,7 @@ export const changeActive = (user, prev, current) => {
   batch.commit().catch(error => {console.log(error)});
 };
 
-export const addPreset = (user, name, value) => {
+export const addPreset = (user:any, name:string, value:string): void => {
   const ref = db.collection("users").doc(user.uid).collection("presets");
   ref.add({
     name: name,
@@ -89,7 +95,7 @@ export const addPreset = (user, name, value) => {
   }).catch((error) => {console.log(error)});
 };
 
-export const deletePresets = (user, list) => {
+export const deletePresets = (user:any, list:string[]) => {
   const ref = db.collection("users").doc(user.uid).collection("presets");
   const batch = db.batch();
   list.forEach(element => {
