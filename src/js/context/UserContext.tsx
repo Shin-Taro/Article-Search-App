@@ -1,13 +1,17 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
-import { getUser, useDocData, usePresetsData } from "../firebase";
+import { getUser, usePresetsData } from "../firebase/index";
 import { Redirect } from 'react-router-dom';
 
-const UserContext = createContext();
+const UserContext = createContext<any>(undefined);
 
 export const useUserContext = () => useContext(UserContext);
 
-export const UserProvider = ({children}) => {
+type Props = {
+  children:React.ReactNode;
+};
+
+export const UserProvider = ({children}:Props) => {
   const { user } = useAuthContext();
 
   if(!user){
