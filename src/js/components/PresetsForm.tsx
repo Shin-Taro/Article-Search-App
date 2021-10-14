@@ -3,19 +3,19 @@ import { useAuthContext } from "../context/AuthContext";
 import { addPreset } from "../firebase";
 
 const PresetsForm = () => {
-  const blockName = "presetsForm";
-  const [values, setValues] = useState({id:"", name:"", query:""});
-  const [message, setMessage] = useState("");
+  const blockName:string = "presetsForm";
+  const [values, setValues] = useState<SendPreset>({name:"", query:""});
+  const [message, setMessage] = useState<string>("");
   const {user} = useAuthContext();
 
-  const handleOnChange = (e) => {
-    const target = e.target;
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+    const target = e.currentTarget;
     const value = target.value;
     const name = target.name;
-    setValues({...values, [name]:value})
+    setValues({...values, [name]:value});
   };
 
-  const checkValues = () => {
+  const checkValues = (): true | string => {
     const name = values.name;
     const query = values.query;
     const nameReg = /^.{1,10}$/;
@@ -32,20 +32,18 @@ const PresetsForm = () => {
     }
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>):void => {
     e.preventDefault();
     const result = checkValues();
     if(typeof(result) === "string"){
       setMessage(result);
-    }else if(!result){
-      console.log("false");
     }else{
       const escapedValue = encodeURIComponent(values.query);
       addPreset(user, values.name, escapedValue);
-      setValues({id:"", name:"", query:""});
+      setValues({name:"", query:""});
       setMessage("success!!");
     }
-  }
+  };
 
   return(
     <div className={blockName}>
@@ -63,11 +61,11 @@ const PresetsForm = () => {
 
         <p className={`${blockName}__text`}>検索値</p>
         <input className={`${blockName}__input`}
-        type="text"
-        name="query"
-        value={values.query}
-        placeholder="query"
-        onChange={(e) => handleOnChange(e)} />
+          type="text"
+          name="query"
+          value={values.query}
+          placeholder="query"
+          onChange={(e) => handleOnChange(e)} />
 
         <button className={`${blockName}__btn`} type="submit">作成</button>
       </form>
