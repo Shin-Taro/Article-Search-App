@@ -12,7 +12,7 @@ const ACCESS_TOKEN: string | undefined = process.env.ACCESS_TOKEN;
 const ArticleSearcher = () => {
   const blockName:string = "articleSearcher";
   const [loading, setLoading] = useState<boolean>(false);
-  const [articles, setArticles] = useState<any[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<{message:string} | null>(null);
   const [keyWord, setKeyWord] = useState<string>("キーワードを入力orプリセットボタンを押す");
   const [count, setCount] = useState<number>(1);
