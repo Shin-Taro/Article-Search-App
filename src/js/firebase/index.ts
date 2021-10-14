@@ -68,13 +68,6 @@ export const usePresetsData = (user:any):CollectionData => {
   return useCollectionData(ref, {idField: "id"});
 };
 
-interface Preset {
-  name:string,
-  value:string,
-  isActive:boolean
-  id:string
-};
-
 export const changeActive = (user:any, prev:Preset, current:string): void => {
   const batch = db.batch();
   if(prev){
