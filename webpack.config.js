@@ -10,7 +10,7 @@ const enabledSourceMap =  process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: "development",
-  entry: path.join(__dirname, "src/js/index.js"),
+  entry: path.join(__dirname, "src/js/index.tsx"),
   output: {
     path: path.join(__dirname, "public"),
     filename: "bundle.js",
@@ -18,6 +18,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader:  "ts-loader",
+          }
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -85,6 +94,9 @@ module.exports = {
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
     new Dotenv(),

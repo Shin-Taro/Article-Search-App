@@ -1,11 +1,15 @@
 import React, { createContext, useContext } from "react";
 import { useAuth } from "../firebase";
 
-const AuthContext = createContext();
+const AuthContext = createContext<any>(undefined);
 
 export const useAuthContext = () => useContext(AuthContext);
 
-export const AuthProvider = ({children}) => {
+type Props = {
+  children:React.ReactNode;
+};
+
+export const AuthProvider = ({children}:Props) => {
   const [user, initializing, error] = useAuth();
   const value = {user};
 

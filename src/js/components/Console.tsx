@@ -3,11 +3,11 @@ import PresetsForm from "./PresetsForm";
 import PresetsDelete from "./PresetsDelete";
 
 const Console = () => {
-  const blockName = "console";
-  const [tab, setTab] = useState("create");
+  const blockName:string = "console";
+  const [tab, setTab] = useState<string | undefined>("create");
 
-  const toggleTabs = (e) => {
-    const type = e.currentTarget.dataset.type;
+  const toggleTabs = (e: React.MouseEvent<HTMLButtonElement>):void => {
+    const type:string | undefined = e.currentTarget.dataset.type;
     setTab(type);
   };
 

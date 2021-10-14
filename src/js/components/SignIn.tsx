@@ -4,7 +4,7 @@ import { signIn } from "../firebase";
 import { Redirect } from 'react-router-dom';
 
 const SignIn = () => {
-  const blockName = "signIn";
+  const blockName:string = "signIn";
   const { user } = useAuthContext();
 
   if(!user){

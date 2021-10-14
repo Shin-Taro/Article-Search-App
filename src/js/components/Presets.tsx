@@ -3,22 +3,29 @@ import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { changeActive } from "../firebase";
 
-const Presets = props => {
-  const blockName = "presets";
-  const {user} = useAuthContext();
-  const {presets, loading} = useUserContext();
+type Props = {
+  runPresets:(preset:Preset) => void
+};
 
-  const handleOnClick = e => {
+const Presets = (props: Props) => {
+  const blockName:string = "presets";
+  const {user} = useAuthContext();
+  const {presets, loading}:{presets: Preset[]; loading: boolean;} = useUserContext();
+
+  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>):void | false => {
     const prev = presets.find(v => v.isActive === true);
     const currentId = e.currentTarget.dataset.id;
     const target = presets.find(v => v.id === currentId);
 
+    if(!prev || !currentId || !target){
+      return false;
+    }
     changeActive(user, prev, currentId);
     props.runPresets(target);
   };
 
-  const renderPresets = () => {
-    const list = presets.map((item) => {
+  const renderPresets = ():JSX.Element[] => {
+    const list:JSX.Element[] = presets.map((item) => {
       return(
       <li key={item.id} className={`${blockName}__item`}>
         <button 
