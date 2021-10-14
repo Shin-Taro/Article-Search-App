@@ -1,15 +1,16 @@
 import React from "react";
 import { logOut } from "../firebase";
-import { useHistory } from 'react-router-dom';
+import { useAuthContext } from "../context/AuthContext";
+import { User } from '@firebase/auth/dist/auth-public'
+
 
 const SignOut = () => {
   const blockName:string = "signOut";
-  const history = useHistory();
+  const {user}:{user:User} = useAuthContext();
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>):void => {
     e.preventDefault();
-    logOut();
-    history.push("/signin");
+    logOut(user);
   };
 
   return(

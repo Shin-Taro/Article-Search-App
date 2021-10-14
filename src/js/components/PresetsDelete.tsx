@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { deletePresets } from "../firebase";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const PresetsDelete = () => {
   const blockName:string = "presetsDelete";
-  const {user} = useAuthContext();
+  const {user}:{user:User} = useAuthContext();
   const {presets}:{presets: Preset[]} = useUserContext();
   const [list, setList] = useState<string[]>([]);
 

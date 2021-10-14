@@ -3,11 +3,12 @@ import Modal from "./Modal";
 import Console from "./Console";
 import SignOut from "./SignOut";
 import { useAuthContext } from "../context/AuthContext";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const Header = () => {
   const blockName:string = "header";
   const [show, setShow] = useState<boolean>(false);
-  const {user} = useAuthContext();
+  const {user}:{user:User} = useAuthContext();
 
   const toggleModal = ():void => {
     setShow(!show);
@@ -16,7 +17,7 @@ const Header = () => {
   return(
     <header className={blockName}>
       <h1 className={`${blockName}__title`}>Qiita Customized App</h1>
-      <p className={`${blockName}__user`}>ユーザー名：{user.displayName}</p>
+      <p className={`${blockName}__user`}>ユーザー名：{user.displayName? user.displayName : "ゲスト"}</p>
       <div className={`${blockName}__btns`}>
         <SignOut />
         <button className={`${blockName}__modal`}
