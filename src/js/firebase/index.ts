@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signInAnonymously,  signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import config from './config';
@@ -13,6 +13,10 @@ firebase.initializeApp(config);
 export const db = firebase.firestore();
 export const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth();
+
+export const signInAnony = ():void => {
+  signInAnonymously(auth);
+};
 
 export const signIn = ():void => {
   signInWithRedirect(auth, googleProvider);
