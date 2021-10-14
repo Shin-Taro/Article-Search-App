@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
 import { getUser, usePresetsData } from "../firebase";
-import { Redirect } from 'react-router-dom';
 
 const UserContext = createContext<any>(undefined);
 
@@ -12,11 +11,7 @@ type Props = {
 };
 
 export const UserProvider = ({children}:Props) => {
-  const { user } = useAuthContext();
-
-  if(!user){
-    return <Redirect to="/signin" />;
-  }else{
+    const { user } = useAuthContext();
     const [presets, loading] = usePresetsData(user);
     const value = {presets, loading};
     console.log(presets);
@@ -25,10 +20,14 @@ export const UserProvider = ({children}:Props) => {
       getUser(user);
     }, []);
 
-    return(
-      <UserContext.Provider value={value}>
-        {children}
-      </UserContext.Provider>
-    );
-  }
+    if(loading){
+      return <p>Now loading</p>
+    }else{
+      return(
+        <UserContext.Provider value={value}>
+          {children}
+        </UserContext.Provider>
+      );
+    }
+
 };
