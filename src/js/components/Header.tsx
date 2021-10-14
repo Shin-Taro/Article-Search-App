@@ -5,11 +5,11 @@ import SignOut from "./SignOut";
 import { useAuthContext } from "../context/AuthContext";
 
 const Header = () => {
-  const blockName = "header";
-  const [show, setShow] = useState(false);
+  const blockName:string = "header";
+  const [show, setShow] = useState<boolean>(false);
   const {user} = useAuthContext();
 
-  const toggleModal = () => {
+  const toggleModal = ():void => {
     setShow(!show);
   };
 
