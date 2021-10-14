@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, signInAnonymously,  signOut } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signInAnonymously, signOut, deleteUser } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import config from './config';
@@ -22,7 +22,11 @@ export const signIn = ():void => {
   signInWithRedirect(auth, googleProvider);
 };
 
-export const logOut = ():void => {
+export const logOut = (user: any):void => {
+  if(user.isAnonymous){
+    db.collection("users").doc(user.uid).delete().catch((error) => console.log(error));
+    deleteUser(user).catch((error) => console.log(error));
+  }
   signOut(auth).catch((error) => {
     console.log(error);
   });
