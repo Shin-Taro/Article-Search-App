@@ -4,16 +4,18 @@ import { useAuthContext } from "../context/AuthContext";
 import { deletePresets } from "../firebase";
 
 const PresetsDelete = () => {
-  const blockName = "presetsDelete";
+  const blockName:string = "presetsDelete";
   const {user} = useAuthContext();
   const {presets} = useUserContext();
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<string[]>([]);
 
-  const handleOnCheck = (e) => {
-    const id = e.currentTarget.dataset.id;
+  const handleOnCheck = (e: React.MouseEvent<HTMLInputElement>):void | false => {
+    const id :string | undefined = e.currentTarget.dataset.id;
     const tempList = list.slice();
 
-    if(tempList.includes(id)){
+    if(!id){
+      return false;
+    }else if(tempList.includes(id)){
       const newList = tempList.filter(item => item != id);
       setList(newList);
     }else{
@@ -22,13 +24,13 @@ const PresetsDelete = () => {
     }
   };
 
-  const handleOnClick = () => {
+  const handleOnClick = ():void => {
     deletePresets(user, list);
     setList([]);
   };
 
-  const renderList = () => {
-    const presetsList = presets.map((item) => {
+  const renderList = ():JSX.Element[] => {
+    const presetsList:JSX.Element[] = presets.map((item:Preset) => {
       return(
         <label key={item.id} className={`${blockName}__item`}>
           <input
