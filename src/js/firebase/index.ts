@@ -72,7 +72,7 @@ export const usePresetsData = (user:any):CollectionData => {
   return useCollectionData(ref, {idField: "id"});
 };
 
-export const changeActive = (user:any, prev:Preset, current:string): void => {
+export const changeActive = (user:any, prev:Preset | undefined, current:string): void => {
   const batch = db.batch();
   if(prev){
     const prevRef = db.collection("users").doc(user.uid).collection("presets").doc(prev.id);

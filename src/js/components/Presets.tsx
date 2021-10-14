@@ -17,7 +17,7 @@ const Presets = (props: Props) => {
     const currentId = e.currentTarget.dataset.id;
     const target = presets.find(v => v.id === currentId);
 
-    if(!prev || !currentId || !target){
+    if(!currentId || !target){
       return false;
     }
     changeActive(user, prev, currentId);
