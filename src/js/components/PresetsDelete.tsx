@@ -6,7 +6,7 @@ import { deletePresets } from "../firebase";
 const PresetsDelete = () => {
   const blockName:string = "presetsDelete";
   const {user} = useAuthContext();
-  const {presets} = useUserContext();
+  const {presets}:{presets: Preset[]} = useUserContext();
   const [list, setList] = useState<string[]>([]);
 
   const handleOnCheck = (e: React.MouseEvent<HTMLInputElement>):void | false => {
