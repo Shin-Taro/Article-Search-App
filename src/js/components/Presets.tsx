@@ -2,6 +2,7 @@ import React from "react";
 import { useUserContext } from "../context/UserContext";
 import { useAuthContext } from "../context/AuthContext";
 import { changeActive } from "../firebase";
+import { User } from '@firebase/auth/dist/auth-public'
 
 type Props = {
   runPresets:(preset:Preset) => void
@@ -9,7 +10,7 @@ type Props = {
 
 const Presets = (props: Props) => {
   const blockName:string = "presets";
-  const {user} = useAuthContext();
+  const {user}:{user:User} = useAuthContext();
   const {presets, loading}:{presets: Preset[]; loading: boolean;} = useUserContext();
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>):void | false => {

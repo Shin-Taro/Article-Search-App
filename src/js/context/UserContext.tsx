@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
 import { getUser, usePresetsData } from "../firebase";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const UserContext = createContext<any>(undefined);
 
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export const UserProvider = ({children}:Props) => {
-    const { user } = useAuthContext();
+    const { user }:{user:User} = useAuthContext();
     const [presets, loading] = usePresetsData(user);
     const value = {presets, loading};
     console.log(presets);

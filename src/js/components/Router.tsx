@@ -3,9 +3,10 @@ import { UserProvider } from "../context/UserContext";
 import ArticleSearcher from "./ArticleSearcher";
 import { useAuthContext } from "../context/AuthContext";
 import SignIn from "./SignIn";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const Router = () => {
-  const { user } = useAuthContext();
+  const { user }:{user:User | undefined} = useAuthContext();
 
   if(!user){
     return <SignIn/>;

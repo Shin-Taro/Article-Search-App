@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { addPreset } from "../firebase";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const PresetsForm = () => {
   const blockName:string = "presetsForm";
   const [values, setValues] = useState<SendPreset>({name:"", query:""});
   const [message, setMessage] = useState<string>("");
-  const {user} = useAuthContext();
+  const {user}:{user:User} = useAuthContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     const target = e.currentTarget;

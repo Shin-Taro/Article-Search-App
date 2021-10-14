@@ -3,11 +3,12 @@ import Modal from "./Modal";
 import Console from "./Console";
 import SignOut from "./SignOut";
 import { useAuthContext } from "../context/AuthContext";
+import { User } from '@firebase/auth/dist/auth-public'
 
 const Header = () => {
   const blockName:string = "header";
   const [show, setShow] = useState<boolean>(false);
-  const {user} = useAuthContext();
+  const {user}:{user:User} = useAuthContext();
 
   const toggleModal = ():void => {
     setShow(!show);
