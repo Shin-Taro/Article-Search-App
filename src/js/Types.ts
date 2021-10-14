@@ -10,3 +10,5 @@ type SendPreset = {
   value:string,
   isActive:boolean
 };
+
+type Content = JSX.Element | JSX.Element[]

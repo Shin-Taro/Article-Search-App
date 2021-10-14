@@ -7,23 +7,23 @@ import List from "./List";
 import Presets from "./Presets";
 import Search from "./Search";
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+const ACCESS_TOKEN: string | undefined = process.env.ACCESS_TOKEN;
 
 const ArticleSearcher = () => {
-  const blockName = "articleSearcher";
-  const [loading, setLoading] = useState(false);
-  const [articles, setArticles] = useState([]);
-  const [error, setError] = useState(null);
-  const [keyWord, setKeyWord] = useState("キーワードを入力orプリセットボタンを押す");
-  const [count, setCount] = useState(1);
-  const [value, setValue] = useState("created%3A%3E2021-08-01");
+  const blockName:string = "articleSearcher";
+  const [loading, setLoading] = useState<boolean>(false);
+  const [articles, setArticles] = useState<any[]>([]);
+  const [error, setError] = useState<{message:string} | null>(null);
+  const [keyWord, setKeyWord] = useState<string>("キーワードを入力orプリセットボタンを押す");
+  const [count, setCount] = useState<number>(1);
+  const [value, setValue] = useState<string>("created%3A%3E2021-08-01");
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
   const qiitaUrl = `https://qiita.com/api/v2/items?page=1&per_page=10&query=`
-  let unmounted = false;
+  let unmounted:boolean = false;
 
-  const requestApi = (url) => {
+  const requestApi = (url:string):void | false => {
     fetch(url,
       {
         headers: {
@@ -32,10 +32,6 @@ const ArticleSearcher = () => {
       }
     )
     .then(response => {
-      if(!response.ok){
-        throw new Error(response);
-      }
-      console.log(response);
       return response.json();
     })
     .then(json => {
@@ -57,7 +53,7 @@ const ArticleSearcher = () => {
     });
   };
 
-  const searchArticles = value => {
+  const searchArticles = (value:string):void => {
     const escapedValue = encodeURIComponent(value);
     const requestUrl = qiitaUrl + escapedValue;
     setValue(escapedValue);
@@ -68,7 +64,7 @@ const ArticleSearcher = () => {
     requestApi(requestUrl);
   };
 
-  const runPresets = preset => {
+  const runPresets = (preset:Preset):void => {
     const requestUrl = qiitaUrl + preset.value;
     setValue(preset.value);
     setCount(1);
@@ -78,9 +74,9 @@ const ArticleSearcher = () => {
     requestApi(requestUrl);
   };
 
-  const turnPage = e => {
+  const turnPage = (e: React.MouseEvent<HTMLDivElement>):void | false => {
     const currentArrow = e.currentTarget.dataset.arrow;
-    let pageCount = count;
+    let pageCount:number = count;
     switch (currentArrow) {
       case "prev":
         if(pageCount <= 1){
@@ -102,8 +98,8 @@ const ArticleSearcher = () => {
     requestApi(url);
   };
 
-  const renderArticles = () => {
-    let elements;
+  const renderArticles = ():Content => {
+    let elements: Content;
     if (error) {
       elements =  <div className={`${blockName}__message`}>{error.message}</div>
     } else if (loading) {
