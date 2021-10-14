@@ -74,7 +74,7 @@ const ArticleSearcher = () => {
     requestApi(requestUrl);
   };
 
-  const turnPage = (e: React.MouseEvent<HTMLDivElement>):void | false => {
+  const turnPage = (e: React.MouseEvent<HTMLButtonElement>):void | false => {
     const currentArrow = e.currentTarget.dataset.arrow;
     let pageCount:number = count;
     switch (currentArrow) {
