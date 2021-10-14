@@ -61,7 +61,7 @@ export const getUser = (user:any):void => {
   });
 };
 
-type CollectionData = [any[] | undefined, boolean, FirebaseError | undefined];
+type CollectionData = [Preset[] | undefined, boolean, FirebaseError | undefined];
 
 export const usePresetsData = (user:any):CollectionData => {
   const ref = db.collection("users").doc(user.uid).collection("presets");
