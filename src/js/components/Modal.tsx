@@ -1,7 +1,13 @@
 import React from "react";
 
-const Modal = props => {
-  const blockName="modal";
+type ModalProps = {
+  readonly show: boolean,
+  onClick:() => void,
+  children:React.ReactNode
+};
+
+const Modal = (props: ModalProps) => {
+  const blockName:string = "modal";
 
   if(props.show){
     return(
