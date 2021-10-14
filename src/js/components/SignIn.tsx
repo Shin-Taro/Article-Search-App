@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthContext } from "../context/AuthContext";
-import { signIn } from "../firebase";
+import { signIn, signInAnony } from "../firebase";
 import { Redirect } from 'react-router-dom';
 
 const SignIn = () => {
@@ -13,6 +13,9 @@ const SignIn = () => {
         <h1 className={`${blockName}__title`}>ログイン</h1>
         <button className={`${blockName}__btn`} type="button" onClick={() => signIn()}>
           Googleアカウントでログイン
+        </button>
+        <button className={`${blockName}__btn`} type="button" onClick={() => signInAnony()}>
+          ゲストで始める
         </button>
       </div>
     );
