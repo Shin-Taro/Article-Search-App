@@ -7,8 +7,7 @@ type Preset = {
 
 type SendPreset = {
   name:string,
-  value:string,
-  isActive:boolean
+  query:string,
 };
 
 type Content = JSX.Element | JSX.Element[]
