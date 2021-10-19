@@ -1,0 +1,29 @@
+.signIn{
+  width: 300px;
+  height: 300px;
+  margin: 50px auto 0;
+  border: solid $colorDarkGray 1px;
+  border-radius: 30px;
+  text-align: center;
+
+  &__title{
+    margin-top: 30px;
+    font-size: 20px;
+  }
+
+  &__btn{
+    margin-top: 20px;
+    display: block;
+    padding: 5px 20px;
+    background-color: $colorLightGray;
+    border: solid $colorWhite 2px;
+    border-radius: 10px;
+
+    &:hover{
+      cursor: pointer;
+      background-color: $colorWhite;
+      border: solid $colorLightGray 1.5px;
+      color: $colorLightGray;
+    }
+  }
+}

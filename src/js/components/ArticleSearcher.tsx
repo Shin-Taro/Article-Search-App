@@ -16,7 +16,7 @@ const ArticleSearcher = () => {
   const [error, setError] = useState<{message:string} | null>(null);
   const [keyWord, setKeyWord] = useState<string>("キーワードを入力orプリセットボタンを押す");
   const [count, setCount] = useState<number>(1);
-  const [value, setValue] = useState<string>("created%3A%3E2021-08-01");
+  const [value, setValue] = useState<string>("");
 
   const firstHalf = `https://qiita.com/api/v2/items?page=`;
   const latterHalf = `&per_page=10&query=`;
