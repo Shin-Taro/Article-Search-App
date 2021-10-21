@@ -9,7 +9,8 @@
     "dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "sass-ver": "sass --version",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
