@@ -11,9 +11,9 @@ import { User } from '@firebase/auth/dist/auth-public'
 // const app = initializeApp(config);
 // export const db = new getFirestore(app);
 firebase.initializeApp(config);
-export const db = firebase.firestore();
-export const googleProvider = new GoogleAuthProvider();
-export const auth = getAuth();
+const db = firebase.firestore();
+const googleProvider = new GoogleAuthProvider();
+const auth = getAuth();
 
 export const signInAnony = ():void => {
   signInAnonymously(auth);
