@@ -56,21 +56,23 @@ const ArticleSearcher = () => {
   const searchArticles = (value:string):void => {
     const escapedValue = encodeURIComponent(value);
     const requestUrl = qiitaUrl + escapedValue;
+    const keyWord = "検索：" + value;
     setValue(escapedValue);
     setCount(1);
     setLoading(true);
     setError(null);
-    setKeyWord(value);
+    setKeyWord(keyWord);
     requestApi(requestUrl);
   };
 
   const runPresets = (preset:Preset):void => {
     const requestUrl = qiitaUrl + preset.value;
+    const keyWord = "プリセット：" + preset.name;
     setValue(preset.value);
     setCount(1);
     setLoading(true);
     setError(null);
-    setKeyWord(preset.name);
+    setKeyWord(keyWord);
     requestApi(requestUrl);
   };
 
@@ -126,11 +128,11 @@ const ArticleSearcher = () => {
       <Search
         searchArticles={searchArticles}
       />
+      <p className={`${blockName}__keyWord`}>{keyWord}</p>
       <Presets
         runPresets={runPresets}
       />
       <Container>
-        <h1 className="container__title">{keyWord}</h1>
         <Controller
           count={count}
           onClick={turnPage}
