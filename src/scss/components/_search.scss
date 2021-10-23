@@ -1,0 +1,35 @@
+.search{
+  text-align: center;
+
+  &__text{
+    width: 30%;
+    padding: 5px 15px;
+    background-color: $colorWhite;
+    border: solid #{$colorWhite} 1px;
+    border-radius: 20px;
+    font-size: 12px;
+
+    &:focus{
+      border: solid #{$colorLightGray} 1px;
+    }
+
+    @include mq(){
+      width: 65%;
+    }
+  }
+
+  &__button{
+    margin-left: 15px;
+    padding: 7px 15px;
+    background-color: $colorGreen;
+    border-style: none;
+    border-radius: 20px;
+    color: $colorWhite;
+    font-weight: bold;
+
+    &:hover{
+      cursor: pointer;
+      background-color: $colorDarkGreen;
+    }
+  }
+}

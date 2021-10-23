@@ -1,0 +1,11 @@
+// base
+@import 'base/_reset';
+@import 'base/_base';
+
+// setting
+@import 'setting/_var';
+@import 'setting/utility';
+@import 'setting/_mixin';
+
+//components 
+@import 'components/*.scss';

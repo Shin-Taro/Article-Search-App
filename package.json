@@ -1,0 +1,70 @@
+{
+  "name": "article-search-app",
+  "version": "1.0.0",
+  "description": "エンジニアのための記事検索アプリ",
+  "main": "index.js",
+  "scripts": {
+    "build": "SET NODE_ENV=production & webpack --mode production",
+    "tsc": "tsc",
+    "dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "sass-ver": "sass --version",
+    "start": "webpack serve --mode development",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shin-Taro/article-search-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shin-Taro/article-search-app/issues"
+  },
+  "homepage": "https://github.com/Shin-Taro/article-search-app#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/firebase": "^3.2.1",
+    "@types/react": "^17.0.29",
+    "@types/react-dom": "^17.0.9",
+    "autoprefixer": "^10.3.6",
+    "babel-jest": "^27.3.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.3.0",
+    "dotenv-webpack": "^7.0.3",
+    "file-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.3.1",
+    "mini-css-extract-plugin": "^2.3.0",
+    "node-sass-glob-importer": "^3.0.2",
+    "postcss-loader": "^6.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
+    "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
+    "terser-webpack-plugin": "^5.2.4",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
+    "webpack": "^5.54.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.15.4",
+    "core-js": "^3.18.2",
+    "firebase": "^9.1.1",
+    "react-firebase-hooks": "^3.0.4"
+  }
+}

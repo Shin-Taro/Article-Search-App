@@ -1,0 +1,37 @@
+.presetsDelete{
+  &__title{
+    font-size: 20px;
+    color: $colorLightGray;
+  }
+
+  &__checkList{
+    width: 70%;
+    margin: 20px auto 0;
+    text-align: center;
+  }
+
+  &__item{
+    &:not(:first-child){
+      margin-left: 20px;
+    }
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  &__checkBox{
+    appearance: checkbox;
+    font-size: 18px;
+  }
+
+  &__btn{
+    display: block;
+    width: 50px;
+    margin: 30px auto 0;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
