@@ -9,7 +9,7 @@ const Dotenv = require('dotenv-webpack');
 const enabledSourceMap =  process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: path.join(__dirname, "src/js/index.tsx"),
   output: {
     path: path.join(__dirname, "public"),
@@ -43,7 +43,6 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              // url: false,
               sourceMap: enabledSourceMap,
               importLoaders: 2,
             },
@@ -116,5 +115,10 @@ module.exports = {
       watch: true,
     },
     open: true,
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
   },
 };
