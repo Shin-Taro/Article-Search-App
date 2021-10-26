@@ -31,7 +31,7 @@ const PresetsDelete = () => {
   };
 
   const renderList = ():JSX.Element[] => {
-    const presetsList:JSX.Element[] = presets.map((item:Preset) => {
+    const presetsList:JSX.Element[] = (presets || []).map((item:Preset) => {
       return(
         <label key={item.id} className={`${blockName}__item`}>
           <input
