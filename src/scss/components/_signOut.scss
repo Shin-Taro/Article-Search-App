@@ -5,6 +5,11 @@
     border: solid $colorLightGray 1.5px;
     border-radius: 10px;
 
+    @include mq(){
+      padding: 5px 10px;
+      font-size: 10px;
+    }
+
     &:hover{
       background-color: $colorLightGray;
       border: solid $colorWhite 2px;
