@@ -26,7 +26,7 @@ const Presets = (props: Props) => {
   };
 
   const renderPresets = ():JSX.Element[] => {
-    const list:JSX.Element[] = presets.map((item) => {
+    const list:JSX.Element[] = (presets || []).map((item) => {
       return(
       <li key={item.id} className={`${blockName}__item`}>
         <button 
