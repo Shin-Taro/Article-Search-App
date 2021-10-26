@@ -6,10 +6,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 const Dotenv = require('dotenv-webpack');
 
-const enabledSourceMap =  process.env.NODE_ENV !== 'production';
+const devMode =  process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: path.join(__dirname, "src/js/index.tsx"),
   output: {
     path: path.join(__dirname, "public"),
@@ -39,19 +39,18 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
-              // url: false,
-              sourceMap: enabledSourceMap,
+              sourceMap: devMode,
               importLoaders: 2,
             },
           },
           {
             loader: "postcss-loader",
             options: {
-              sourceMap: enabledSourceMap,
+              sourceMap: devMode,
               postcssOptions: {
                 plugins: ["autoprefixer"],
               },
@@ -61,7 +60,7 @@ module.exports = {
             loader: "sass-loader",
             options: {
               implementation: require('sass'),
-              sourceMap: enabledSourceMap,
+              sourceMap: devMode,
               sassOptions: {
                 importer: globImporter()
               },
@@ -116,5 +115,10 @@ module.exports = {
       watch: true,
     },
     open: true,
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
   },
 };
