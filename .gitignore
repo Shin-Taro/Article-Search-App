@@ -3,4 +3,6 @@ public
 npm-debug.log
 .vscode
 .env
+firestore.rules
+.firebase
 wireframe.xd
