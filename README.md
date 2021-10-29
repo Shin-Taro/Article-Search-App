@@ -13,5 +13,3 @@ React開発の個人練習用として作りました。
 * ユーザー情報、ユーザーごとのpreset情報はfirestoreにて管理
 ## Deploying
 <https://react-customizeqiita-pwa.web.app/>
-## Note
-v1.0 レスポンシブ非対応
